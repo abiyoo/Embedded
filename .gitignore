@@ -1,3 +1,7 @@
 Debug
 settings
-main.ewp
+*.ewp
+*.dep
+*.ewd
+*.ewt
+*.eww
