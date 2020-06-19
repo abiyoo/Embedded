@@ -4,7 +4,7 @@
 
 #define GPIOCGR (*((unsigned int *) 0x400FE608U))
 
-#define GPIOF_BASE 0x40025
+#define GPIOF_BASE 0x40025000
 
 #define GPIOF_DIR (*(unsigned int *)(GPIOF_BASE + 0x400U))
 #define GPIOF_DEN (*(unsigned int *)(GPIOF_BASE + 0x51CU))
@@ -28,6 +28,7 @@ int main() {
     GPIOCGR = 0x20U; //Clock Gating
     GPIOF_DIR = 0x0EU; //Direction
     GPIOF_DEN = 0x0EU; //Digital Enable
+
 
    while (1)
    {
