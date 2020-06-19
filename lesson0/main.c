@@ -2,25 +2,20 @@
 #include "bsp.h"
 
 
+#define LED_RED 1U << 1
+#define LED_BLUE 1U << 2
+#define LED_GREEN 1U << 3
+
 #define GPIOCGR (*((unsigned int *) 0x400FE608U))
 
 #define GPIOF_BASE 0x40025000
+
+#define GPIOF_DATA_BASE 0x40025000
 
 #define GPIOF_DIR (*(unsigned int *)(GPIOF_BASE + 0x400U))
 #define GPIOF_DEN (*(unsigned int *)(GPIOF_BASE + 0x51CU))
 #define GPIOF_DATA (*(unsigned int *)(GPIOF_BASE + 0x3FCU))
 
-void delay();
-
-void delay (){
-
-    int volatile counter = 0;
-
-    while (counter < 1000000) {
-
-        counter++;
-    }
-}
 
 int main() {
 
@@ -34,11 +29,17 @@ int main() {
    {
 
        delay();
-       GPIOF_DATA = 0x02U;
+       *((unsigned int *)(GPIOF_DATA_BASE + (LED_GREEN<<2)))  = ~LED_GREEN;
+       *((unsigned int *)(GPIOF_DATA_BASE + (LED_RED<<2)))  = LED_RED;
+       //GPIOF_DATA = 0x02U;
        delay();
-       GPIOF_DATA = 0x04U;
+       *((unsigned int *)(GPIOF_DATA_BASE + (LED_RED<<2)))  =  ~LED_RED;
+       *((unsigned int *)(GPIOF_DATA_BASE + (LED_BLUE<<2)))  = LED_BLUE;
+       //GPIOF_DATA = 0x04U;
        delay();
-       GPIOF_DATA = 0x08U;
+       *((unsigned int *)(GPIOF_DATA_BASE + (LED_BLUE<<2)))  = ~LED_BLUE;
+       *((unsigned int *)(GPIOF_DATA_BASE + (LED_GREEN<<2)))  = LED_GREEN;
+       //GPIOF_DATA = 0x08U;
 
    }
 
