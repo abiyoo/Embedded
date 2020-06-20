@@ -1,5 +1,5 @@
 //#include "TM4C123GH6PM.h"
-#include "bsp.h"
+//#include "bsp.h"
 
 
 #define LED_RED 1U << 1
@@ -19,6 +19,9 @@
 
 int main() {
 
+   // int x[] = {1, 2, 3, 4 };
+
+   // int p = x[1<<1];
 
     GPIOCGR = 0x20U; //Clock Gating
     GPIOF_DIR = 0x0EU; //Direction
@@ -29,16 +32,16 @@ int main() {
    {
 
        delay();
-       *((unsigned int *)(GPIOF_DATA_BASE + (LED_GREEN<<2)))  = ~LED_GREEN;
-       *((unsigned int *)(GPIOF_DATA_BASE + (LED_RED<<2)))  = LED_RED;
+       *((unsigned int *)(GPIOF_DATA_BASE + (LED_GREEN<<2)))  &= ~LED_GREEN;
+       *((unsigned int *)(GPIOF_DATA_BASE + (LED_RED<<2)))  |= LED_RED;
        //GPIOF_DATA = 0x02U;
        delay();
-       *((unsigned int *)(GPIOF_DATA_BASE + (LED_RED<<2)))  =  ~LED_RED;
-       *((unsigned int *)(GPIOF_DATA_BASE + (LED_BLUE<<2)))  = LED_BLUE;
+       *((unsigned int *)(GPIOF_DATA_BASE + (LED_RED<<2)))  &=  ~LED_RED;
+       *((unsigned int *)(GPIOF_DATA_BASE + (LED_BLUE<<2)))  |= LED_BLUE;
        //GPIOF_DATA = 0x04U;
        delay();
-       *((unsigned int *)(GPIOF_DATA_BASE + (LED_BLUE<<2)))  = ~LED_BLUE;
-       *((unsigned int *)(GPIOF_DATA_BASE + (LED_GREEN<<2)))  = LED_GREEN;
+       *((unsigned int *)(GPIOF_DATA_BASE + (LED_BLUE<<2)))  &= ~LED_BLUE;
+       *((unsigned int *)(GPIOF_DATA_BASE + (LED_GREEN<<2)))  |= LED_GREEN;
        //GPIOF_DATA = 0x08U;
 
    }
